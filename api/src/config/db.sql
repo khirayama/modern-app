@@ -1,0 +1,3 @@
+CREATE DATABASE modern_database_development;
+CREATE DATABASE modern_database_test;
+CREATE DATABASE modern_database_production;
