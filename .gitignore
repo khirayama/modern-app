@@ -1,3 +1,5 @@
 .DS_Store
+.envrc
 
 /api/node_modules
+/web/node_modules

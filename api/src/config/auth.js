@@ -1,6 +1,6 @@
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
-const User = require('../models/user');
+const User = require('../models').User;
 const config = require('./config');
 
 const params = {
@@ -10,13 +10,15 @@ const params = {
 
 module.exports = () => {
   const strategy = new passportJWT.Strategy(params, (payload, done) => {
-    // const user = users[payload.id] || null;
-
-    if (user) {
-      return done(null, {id: user.id});
-    } else {
-      return done(new Error('User not found'), null);
-    }
+    User.findOne({
+      where: { id: payload.id },
+    }).then(user => {
+      if (user) {
+        return done(null, {id: user.id});
+      } else {
+        return done(new Error('User not found'), null);
+      }
+    });
   });
 
   passport.use(strategy);
